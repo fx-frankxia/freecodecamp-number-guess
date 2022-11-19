@@ -16,5 +16,25 @@ else
   echo "Welcome back, "$USERNAME"! You have played "$GAMES_PLAYED" games, and your best game took "$BEST_GAME" guesses."
 fi
 
+# GAME GUESS LOOP
+GUESS_LOOP(){
+  read USER_GUESS
+  if [[ $USER_GUESS < $RANDOM_NUMBER ]]
+  then
+    echo "It's lower than that, guess again:"
+    GUESS_LOOP
+  else
+    if [[ $USER_GUESS > $RANDOM_NUMBER ]]
+    then
+      echo "It's higher than that, guess again:"
+      GUESS_LOOP
+    else
+      echo "BINGO"
+    fi
+  fi
+}
+
 # GAME START
 RANDOM_NUMBER=$(($RANDOM % 1000 + 1))
+echo -e "\nGuess the secret number between 1 and 1000:\n"
+GUESS_LOOP

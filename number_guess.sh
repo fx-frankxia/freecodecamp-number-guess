@@ -19,18 +19,24 @@ fi
 # GAME GUESS LOOP
 GUESS_LOOP(){
   read USER_GUESS
-  if [[ $USER_GUESS < $RANDOM_NUMBER ]]
+  if [[ $USER_GUESS =~ ^[0-9]{1,4}$ ]]
   then
-    echo "It's lower than that, guess again:"
-    GUESS_LOOP
-  else
-    if [[ $USER_GUESS > $RANDOM_NUMBER ]]
+    if [[ $USER_GUESS < $RANDOM_NUMBER ]]
     then
-      echo "It's higher than that, guess again:"
+      echo "It's lower than that, guess again:"
       GUESS_LOOP
     else
-      echo "BINGO"
+      if [[ $USER_GUESS > $RANDOM_NUMBER ]]
+      then
+        echo "It's higher than that, guess again:"
+        GUESS_LOOP
+      else
+        echo "BINGO"
+      fi
     fi
+  else
+    echo "That is not an integer, guess again:"
+    GUESS_LOOP
   fi
 }
 

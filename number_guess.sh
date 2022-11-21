@@ -33,6 +33,15 @@ GUESS_LOOP(){
         GUESS_LOOP
       else
         echo "You guessed it in $NUMBER_OF_GUESSES tries. The secret number was $RANDOM_NUMBER. Nice job!"
+        if [[ -z $BEST_GAME ]]
+        then
+          UPDATE_BEST_GAME=$($PSQL "UPDATE users SET best_game = '$NUMBER_OF_GUESSES' WHERE user_name = '$USERNAME'")
+        else
+          if [[ $NUMBER_OF_GUESSES -lt $BEST_GAME ]]
+          then
+            UPDATE_BEST_GAME=$($PSQL "UPDATE users SET best_game = '$NUMBER_OF_GUESSES' WHERE user_name = '$USERNAME'")            
+          fi
+        fi
       fi
     fi   
   else

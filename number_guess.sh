@@ -55,3 +55,5 @@ RANDOM_NUMBER=$(($RANDOM % 1000 + 1))
 echo -e "\nGuess the secret number between 1 and 1000:\n"
 NUMBER_OF_GUESSES=0
 GUESS_LOOP
+((GAMES_PLAYED++))
+UPDATE_GAMES_PLAYED=$($PSQL "UPDATE users SET games_played = '$GAMES_PLAYED' WHERE user_name = '$USERNAME'")

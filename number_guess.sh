@@ -21,19 +21,20 @@ GUESS_LOOP(){
   read USER_GUESS
   if [[ $USER_GUESS =~ ^[0-9]{1,4}$ ]]
   then
-    if [[ $USER_GUESS < $RANDOM_NUMBER ]]
+    ((NUMBER_OF_GUESSES++))
+    if [[ $USER_GUESS -lt $RANDOM_NUMBER ]]
     then
       echo "It's lower than that, guess again:"
       GUESS_LOOP
     else
-      if [[ $USER_GUESS > $RANDOM_NUMBER ]]
+      if [[ $USER_GUESS -gt $RANDOM_NUMBER ]]
       then
         echo "It's higher than that, guess again:"
         GUESS_LOOP
       else
-        echo "BINGO"
+        echo "You guessed it in $NUMBER_OF_GUESSES tries. The secret number was $RANDOM_NUMBER. Nice job!"
       fi
-    fi
+    fi   
   else
     echo "That is not an integer, guess again:"
     GUESS_LOOP
@@ -43,4 +44,5 @@ GUESS_LOOP(){
 # GAME START
 RANDOM_NUMBER=$(($RANDOM % 1000 + 1))
 echo -e "\nGuess the secret number between 1 and 1000:\n"
+NUMBER_OF_GUESSES=0
 GUESS_LOOP
